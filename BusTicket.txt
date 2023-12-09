@@ -1,0 +1,201 @@
+package Project;
+import java.sql.*;
+import java.util.Scanner;
+
+public class BusTicket {
+
+	public static void main(String[] args) {
+		int ij=5;
+		while(ij>0) {
+		
+			try {
+				
+			Class.forName("com.mysql.jdbc.Driver");
+		
+		Scanner sc=new Scanner(System.in);
+		Scanner sc1=new Scanner(System.in);
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/ticket","root","ijenith619");
+		Statement st=con.createStatement();
+		System.err.println("_____________WElCOME TO ITACHI BUS BOOKING SERVICES____________________");
+		System.out.println("___________________________________________________");
+		System.out.println("1 . USER                            2 . ADMIN");
+		int choice=sc1.nextInt();
+		System.out.println("______________________________________");
+		if(choice== 1) {
+			 System.out.println("\n1 . REGISTER PAGE                              2 . SIGNIN\n");
+			   System.out.println("______________________________________");
+			   int register=sc1.nextInt();
+			      if( register==1) {
+				  System.err.println("_______________________REGISTER FORM___________________________");
+				  System.out.println("Enter your name");
+				  String n=sc.next();
+				  System.out.println("Enter your Mobile Number:");
+				  long mnbr=sc1.nextLong();
+				  System.out.println("Enter Your Email ID:");
+				  String email=sc.next();
+				  System.out.println("Enter Your Destination:");
+				  String desti=sc.next();
+				  System.out.println("Date of Journey");
+				  String date=sc.next();
+				  System.out.println("Pickup Point");
+				  String pp=sc.next();
+				  System.out.println("From:");
+				  String from=sc.next();
+				  System.out.println("To:");
+				  String to=sc.next();	
+				  String use="insert into bus(name,nbr,Email,destination,dfj,pickup)value('"+n+"','"+mnbr+"','"+email+"','"+desti+"','"+date+"','"+pp+"')";
+				 int ije= st.executeUpdate(use);
+				 if(ije>0) {
+					   System.out.print("Your details are processing...");
+					   for(int k=1;k<=10;k++) {
+						   System.out.print(".");
+						   Thread.sleep(1000);
+					   }
+				 }
+				 
+				 
+
+				  System.out.println(" TYPE:  1. Ac     2.NON Ac   ");
+				  int Option=sc1.nextInt();
+				  System.out.println("______________________________________");
+				  				  
+				  if(Option==1) {
+					  System.out.println("Ac Seat is Booked");
+//					  String ac=sc.nextLine();
+					  System.out.println("\n1. Sleeper 2.Seat\n");
+					  int seat=sc1.nextInt();
+					  if(seat==1) {
+						  System.out.println("Sleeper is booked");
+//						  String sl=sc.nextLine();
+//					  System.out.println("Booking Successfully");
+					  }
+					  else if(seat==2) {
+						  System.out.println("Seat is booked");
+//						  String se=sc.nextLine();
+//						  System.out.println("Booking Successfully");
+					  }
+					  else {
+						  System.err.println("Unable to process");
+					  }
+					  int j=1;
+					  if(j>0) {
+						   System.out.print("Your details are processing...");
+						   for(int k=1;k<=10;k++) {
+							   System.out.print(".");
+							   Thread.sleep(1000);
+						   }
+					    System.out.println("\nYour Ticket is Booking successfully");
+						System.out.println("____________________________________");
+						
+					   }
+					   else {
+						   System.err.println("Unable to process");
+					   }
+				  }
+				  
+				  
+				  
+				 
+				  else if(Option==2) {
+					  System.out.println("Non Ac is booked");
+//					  String nonac=sc.nextLine();
+					  System.out.println("\n1. Sleeper 2.Seat");
+					  int seat1=sc1.nextInt();
+					  System.out.println("______________________________________");
+					  
+					  if(seat1==1) {
+						 
+						  System.out.println("Booking Successfully");
+						  
+					  }
+					  else if(seat1==2) {
+						  System.out.println("Booking Successfully");
+					  }
+					  else {
+						  System.err.println("Unable to process");
+					  }
+					 
+					  
+					  
+				  }
+				  
+				  else {
+					  System.out.println("Invalid Type");
+				  }
+				  
+				  
+			   }
+			   else if(register==2) {
+				   System.out.println("Enter your name");
+				   String n=sc.next();
+				   if(n!=null) {
+					   
+				   }
+				   String showall="Select * from bus where name='"+n+"'";
+				   ResultSet rs=st.executeQuery(showall);
+				   while(rs.next()) {
+					   System.out.println("Name:"+rs.getString(2)+"\t"+"Destination:"+rs.getString(5)+"\t"+"To:"+rs.getString(7)+"\t");
+				   }
+			   }
+			      
+			      
+			      
+		}
+		else if(choice==2) {
+			System.out.println("Enter your name:");
+			String str=sc.next();
+			System.out.println("Enter your Password:");
+			int pass=sc1.nextInt();
+			if(str.equals("jenith") && pass==1234) {
+				System.out.println("1.Cancel Ticket  2.passenger details");
+				int ct=sc1.nextInt();
+				if(ct==2) {
+					System.out.println("Admin Access here");
+					String hey="Select * from bus";
+					ResultSet rss=st.executeQuery(hey);
+					while(rss.next()) {
+						System.out.println("Name:"+rss.getString(2)+"\t"+"Mobile Number:"+rss.getString(3)+"\t"+"Destination:"+rss.getString(5)+"\t"+"To:"+rss.getString(7)+"\t");
+					}
+				}
+				else if(ct==1) {
+					System.out.println("Enter your name");
+					String n1=sc.nextLine();
+					String del="delete from bus where name='"+n1+"'";
+					int cd=st.executeUpdate(del);
+					if(cd>0) {
+						   System.err.print("\n      Ticket Canceled....");
+						   for(int j=1;j<=10;j++) {
+							   System.err.print("Ticket is canceled...");
+							   Thread.sleep(500);
+						   }
+					}
+
+				}
+				else {
+					for(int i=1; i<=1; i++) {
+					Thread.sleep(1000);
+					System.out.println("userName or PassWord inCorrect");
+					}
+				}
+
+				
+				
+			}
+			 
+			 
+			
+		}
+		
+	
+	
+		
+		
+			}
+			catch (Exception e) {
+				 
+				e.printStackTrace();
+			}
+		}
+	}
+
+}
